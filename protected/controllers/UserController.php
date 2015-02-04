@@ -24,6 +24,43 @@ class UserController extends Controller
 		return $this->checkUserAuth();
 	}
 
+	public function actionIndex()
+	{
+		$this->render('index');
+	}
+
+	/**
+	 * Manages all models.
+	 */
+	public function actionRepassword($id)
+	{
+		$model=User::model()->findByPk($id);
+		if(isset($_POST['User']['password'])){
+			if($model->validatePassword($_POST['User']['password'])){
+				$model->scenario ='resetpassword';
+				$model->repeat_password = $_POST['User']['repeat_password'];
+				$model->new_password =  $_POST['User']['new_password'];
+				if($model->validate()){
+					$model->password = $model->hashPassword($_POST['User']['new_password']);
+					if ($model->save()) {
+						$this->redirect(array('index/index'));
+					}
+				}
+			}else{
+				$model->addError('password','錯誤的帳號或密碼。');
+			}
+		}
+
+		// $model->password = $model->hashPassword($_POST['User']['new_password']);
+		// if ($model->save()) {
+		// 	$this->redirect(array('admin'));
+		// }	
+			
+		$this->render('repassword',array(
+			'model'=>$model,
+		));
+	}
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -58,6 +95,31 @@ class UserController extends Controller
 	}
 
 	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionSetPassword($mail,$newPassword)
+	{
+		$criteria=new CDbCriteria;
+		$criteria->addCondition("username = '" . $mail ."'");
+
+		$model=User::model()->find($criteria);
+
+		if($model!==null)
+		{
+			$model->password = $model->hashPassword($newPassword);
+			if($model->save()){
+				$this->redirect(array('index/index'));
+			}else{
+				echo "更換失敗";
+			}
+		}else{
+			echo "ID不存在";
+		}
+
+	}
+
+	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
@@ -83,30 +145,17 @@ class UserController extends Controller
 	}
 	
 	/**
-	 * Manages all models.
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionRepassword($id)
+	public function actionDelete($id)
 	{
-		$model=User::model()->findByPk($id);
-		if(isset($_POST['User']['password'])){
-			if($model->validatePassword($_POST['User']['password'])){
-				$model->scenario ='resetpassword';
-				$model->repeat_password = $_POST['User']['repeat_password'];
-				$model->new_password =  $_POST['User']['new_password'];
-				if($model->validate()){
-					$model->password = $model->hashPassword($_POST['User']['new_password']);
-					if ($model->save()) {
-						$this->redirect(array('admin'));
-					}
-				}
-			}else{
-				$model->addError('password','錯誤的帳號或密碼。');
-			}
-		}
-	
-		$this->render('repassword',array(
-			'model'=>$model,
-		));
+		$this->loadModel($id)->delete();
+
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
 	/**

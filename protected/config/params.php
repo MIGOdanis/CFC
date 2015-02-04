@@ -17,11 +17,9 @@ return array(
 	// the copyright information displayed in the footer section
 	'baseUrl' => 'http://127.0.0.1/cloud',
 
-	'qaType' => array(
-		"about" => "關於域動",
-		"advertisers" => "刊登廣告",
-		"network" => "加入聯播網",
-	),
+	'userGroup' => array('1'=>'網站管理員','2'=>'產品','3'=>'BD','4'=>'業務','5'=>'行銷'),
+	'msgTarget' => array('RootCompany'=>'管理員','AdAgency'=>'經銷商','Advertiser'=>'廣告主','MdAgency'=>'代理商','Site'=>'網站主'),
+	'msgType' => array('1'=>'全部','2'=>'CF','3'=>'MF'),
 
 	'uploadFolder' => dirname(__FILE__)."/../../../upload/"
 );

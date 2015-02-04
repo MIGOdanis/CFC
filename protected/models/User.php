@@ -33,7 +33,7 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, password, nick_name, active, creat_time, repeat_password', 'required', 'on'=>'register'),
-			array('username, password, nick_name, active, creat_time', 'required'),
+			array('username, password, nick_name, active, creat_time, group', 'required'),
 			array('active, creat_time', 'numerical', 'integerOnly'=>true),
 			array('username, password, nick_name', 'length', 'max'=>255),
 			// The following rule is used by search().
@@ -70,8 +70,9 @@ class User extends CActiveRecord
 			'nick_name' => '暱稱',
 			'new_password' => '新密碼',
 			'repeat_password' => '確認密碼',
-			'active' => 'Active',
+			'active' => '啟用狀態',
 			'creat_time' => 'Creat Time',
+			'group' => '身分'
 		);
 	}
 

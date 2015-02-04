@@ -14,7 +14,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#site-setting-grid').yiiGridView('update', {
+	$('#yiiCGrid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ?>
 <a class="btn btn-default" href="create">新增後台使用者</a>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'site-setting-grid',
+	'id'=>'yiiCGrid',
 	'itemsCssClass' => 'table table-bordered table-striped',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -46,28 +46,34 @@ $('.search-form form').submit(function(){
 		'username',
 		'nick_name',
 		array(
+			'name'=>'group',
+			'value'=>'Yii::app()->params["userGroup"][$data->group]',
+			'filter'=>false,
+		),		
+		array(
 			'name'=>'active',
 			'value'=>'($data->active == 0)? "停用中" : "啟用中"',
+			'filter'=>false,
 		),		
 		array(
 			'class'=>'CButtonColumn',
-			'template'=>'{update}{activate}{deactivate}{delete}',
+			'template'=>'{update}{activate}{deactivate}',
 			'deleteConfirmation'=>"js:'確定是否要刪除此項目?'",
 			'htmlOptions'=>array('width'=>'80'),
 			'buttons'=>array
 			(
 				'activate'=>array(
 						'label'=>'啟用',
-						'url'=>'Yii::app()->createUrl("activity/active", array("id"=>$data->id))',
+						'url'=>'Yii::app()->createUrl("user/active", array("id"=>$data->id))',
 						'click'=>"function() {
 							if(!confirm('是否啟用?')) return false;
 							var th = this,
 								afterDelete = function(){};
-							jQuery('#activity-grid').yiiGridView('update', {
+							jQuery('#yiiCGrid').yiiGridView('update', {
 								type: 'POST',
 								url: jQuery(this).attr('href'),
 								success: function(data) {
-									jQuery('#activity-grid').yiiGridView('update');
+									jQuery('#yiiCGrid').yiiGridView('update');
 									afterDelete(th, true, data);
 								},
 								error: function(XHR) {
@@ -81,16 +87,16 @@ $('.search-form form').submit(function(){
 				),
 				'deactivate'=>array(
 						'label'=>'停用',
-						'url'=>'Yii::app()->createUrl("activity/active", array("id"=>$data->id))',
+						'url'=>'Yii::app()->createUrl("user/active", array("id"=>$data->id))',
 						'click'=>"function() {
 							if(!confirm('是否停用?')) return false;
 							var th = this,
 								afterDelete = function(){};
-							jQuery('#activity-grid').yiiGridView('update', {
+							jQuery('#yiiCGrid').yiiGridView('update', {
 								type: 'POST',
 								url: jQuery(this).attr('href'),
 								success: function(data) {
-									jQuery('#activity-grid').yiiGridView('update');
+									jQuery('#yiiCGrid').yiiGridView('update');
 									afterDelete(th, true, data);
 								},
 								error: function(XHR) {
