@@ -41,3 +41,28 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Yii
+assets/*
+!assets/css
+!assets/image
+!assets/js/
+!assets/.gitignore
+protected/runtime/*
+!protected/runtime/.gitignore
+protected/data/*.db
+
+
+#cf
+upload/*
+assets/*
+!assets/css
+!assets/image
+!assets/js
+!assets/.gitignore
+protected/runtime/*
+protected/runtime/*.log
+!protected/runtime/.gitignore
+protected/data/*.db
+protected/runtime/application.log
+admin/protected/runtime/application.log
