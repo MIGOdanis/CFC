@@ -19,11 +19,11 @@
  */
 //停用的toolbar : fullscreen styleselect 
 tinymce.init({
- 	// selector: "content",
+ 	selector: "content",
  	relative_urls : false,
-    selector: ".tinymce",
+    selector: "textarea",
 	language : 'zh_TW',
-    // menubar: false,
+    //menubar: false,
 	toolbar: " undo redo | forecolor fontsizeselect | bold italic underline strikethrough | sharemaps | alignleft aligncenter alignright | bullist numlist | link unlink | image jbimages | preview ",
 	plugins: [
 		" fullscreen textcolor advlist autolink lists link image charmap print preview anchor",

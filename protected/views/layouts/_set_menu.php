@@ -9,10 +9,19 @@ $mapping = array(
 	"lbsGroup" => "business",
 	"bcMaker" => "business",
 	"business" => "business",
+	"system" => "system",
+	"message" => "system",	
 );
 $fullMenu = array();
 //設置選單 
 $fullMenu = array(	
+	"system" => array(
+		"title" => "系統雲",
+		"defaultUrl" => "message/admin",
+		"action" => array(
+			array("title" => "管理CF&MF公告", "remark" => "管理CF&MF後台公告訊息", "url"=>"message/admin", "controller" => "message", "action" => array("admin", "update", "create", "active", "view", "delete")),
+		)
+	),
 	"business" => array(
 		"title" => "業務雲",
 		"defaultUrl" => "lbs/index",

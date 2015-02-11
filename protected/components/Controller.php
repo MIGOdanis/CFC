@@ -33,11 +33,11 @@ class Controller extends CController
 
 	public function checkUserAuth(){
 		$auth = array();
-
+		if($this->id == "user")
+				$auth[] = "repassword";
 		if(Yii::app()->user->id > 0 && isset(Yii::app()->user->auth[$this->id])){
 			$auth = Yii::app()->user->auth[$this->id];
-			if($this->id == "user")
-				$auth[] = "repassword";
+			
 		}else{
 			if(Yii::app()->user->id > 0)
 				throw new CHttpException(403,'The requested page does not exist.');

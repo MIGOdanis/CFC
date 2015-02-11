@@ -39,7 +39,7 @@ Session_start();
 | -------------------------------------------------------------------*/
 
 	
-	$config['img_path'] = '/ClickForce/upload/pageImage/'.date("Y-m-d"); // 跟目錄www之後的目錄位置
+	$config['img_path'] = '/adclicksMsg/upload/msgImg/'.date("Y-m-d"); // 跟目錄www之後的目錄位置
 	$config['upload_path'] = $_SERVER['DOCUMENT_ROOT'] . $config['img_path']; // Physical path. [Usually works fine like this]
 
 
@@ -77,7 +77,7 @@ Session_start();
 | -------------------------------------------------------------------*/
 
 	
-	$config['max_width'] = 600;
+	$config['max_width'] = 300;
 
 
 /*-------------------------------------------------------------------
@@ -89,7 +89,7 @@ Session_start();
 | -------------------------------------------------------------------*/
 
 	
-	$config['max_height'] = 800;
+	$config['max_height'] = 300;
 
 
 /*-------------------------------------------------------------------
