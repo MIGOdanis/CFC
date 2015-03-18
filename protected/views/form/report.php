@@ -1,4 +1,3 @@
-<script type="text/javascript" src="<?php echo Yii::app()->params['baseUrl']; ?>/assets/bootstrap/js/bootstrap.min.js"></script>
 <style type="text/css">
 	.dashboard{
 		overflow: hidden;
@@ -86,15 +85,21 @@
 </div>
 <a class="btn btn-default" href="report?id=<?php echo $_GET['id'];?>&report=1" role="button">下載RowData</a>
 <div class="ans">
-<?php foreach ($question as $q1) { ?>
+<?php 
+// print_r($question); exit;
+foreach ($question as $q1) { ?>
 	<div class="page">
 	<div class="page-header">
 	  <h3><?php echo $q1['pageTitle'] . "( 分頁" . $q1['pageIndex'] . ")"; ?> </h3>
 	</div>	
-	<?php foreach ($q1['object'] as $key => $object) { ?>
+	<?php 
+	foreach ($q1['object'] as $key => $object) {
+		if($object['type'] != "html"){
+	?>
 		<div class="report">
 			<div><?php echo $object['title']; ?></div>
 			<?php  
+			if(!empty($objectAns[$key])){ 
 				if($object['type'] == "tableSelect"){
 					$ansArray = array();
 					foreach ($objectAns[$key] as $ans) {
@@ -119,8 +124,9 @@
 						$ansArray[$ans]++;
 					}
 				}
+			}
 			?>
-			<div class="report-item">
+			<div class="report-item <?php echo $key; ?>">
 				<div class="report-ans">
 					<ul>
 						<?php foreach ($ansArray as $ansName => $ansCount) {?>	
@@ -156,6 +162,7 @@
 					</div>
 				</div>
 			</div>
+			<?php }	?>
 		</div>
 	<?php }	?>
 	</div>

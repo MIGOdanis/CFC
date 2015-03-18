@@ -61,13 +61,13 @@ class FormsUser extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'years' => 'Years',
+			'years' => '生日',
 			'uuid' => 'Uuid',
 			'fb_id' => 'Fb',
-			'name' => 'Name',
-			'phone' => 'Phone',
-			'mail' => 'Mail',
-			'gender' => 'Gender',
+			'name' => '姓名',
+			'phone' => '聯絡電話',
+			'mail' => '聯絡信箱',
+			'gender' => '性別',
 			'city' => 'City',
 			'area' => 'Area',
 		);

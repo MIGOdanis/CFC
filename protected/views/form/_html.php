@@ -24,7 +24,7 @@ if(isset($_POST['data'])){
 <h3>HTML區塊</h3>
 <div class="html-group">
 	<label>HTML區塊</label>
-	<textarea rows="20" id="html"><?php echo ($update)?  urldecode($data->html) : ""; ?></textarea>		
+	<textarea rows="20" id="html"><?php echo ($update)? urldecode($data->html) : ""; ?></textarea>		
 </div>
 <div class="modal-footer">
 	<input class="btn btn-primary" id="getLayout" type="submit" name="yt0" data-page="<?php echo $_GET['pid']; ?>" value="<?php echo ($update)? "修改" : "新增"; ?>">

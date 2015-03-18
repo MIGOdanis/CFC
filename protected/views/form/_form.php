@@ -19,6 +19,9 @@
 		margin-top: 20px;
 	}
 </style>
+<script type="text/javascript">
+	var active = 2;
+</script>
 	<?php $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'site-setting-form',
 		'enableAjaxValidation'=>false,

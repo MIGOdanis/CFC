@@ -39,7 +39,7 @@ Session_start();
 | -------------------------------------------------------------------*/
 
 	
-	$config['img_path'] = '/adclicksMsg/upload/msgImg/'.date("Y-m-d"); // 跟目錄www之後的目錄位置
+	$config['img_path'] = '/CFC/upload/'; // 跟目錄www之後的目錄位置
 	$config['upload_path'] = $_SERVER['DOCUMENT_ROOT'] . $config['img_path']; // Physical path. [Usually works fine like this]
 
 

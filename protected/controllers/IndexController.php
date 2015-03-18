@@ -23,6 +23,12 @@ class IndexController extends Controller
 		}
 	}
 
+	public function actionGetCookie()
+	{
+		print_r($_COOKIE);
+		exit;
+	}
+
 	public function actionMsg()
 	{
 		
@@ -80,11 +86,19 @@ class IndexController extends Controller
 					$formUser=new FormsUser();
 					$formUser->attributes=$_POST['FormsUser'];
 					$formUser->years = strtotime($_POST['FormsUser']['years']);
+					
+					if($formUser->gender == 0)
+						$formUser->gender = "";
 
-					//print_r($formUser->years);exit;
+					if(isset($_COOKIE['uuid']))
+						$formUser->uuid = $_COOKIE['uuid'];
+
+					// print_r($_POST['FormsUser']);exit;
 
 					if(isset(Yii::app()->session["fbId"]) && !empty(Yii::app()->session["fbId"]))
 						$formUser->fb_id = Yii::app()->session["fbId"];
+
+					// print_r($formUser); exit;
 
 					if($formUser->save()){
 						Yii::app()->session["formUser"] = $formUser->id;
@@ -97,6 +111,10 @@ class IndexController extends Controller
 
 					$checkFormUser->attributes=$_POST['FormsUser'];
 					$checkFormUser->years = strtotime($_POST['FormsUser']['years']);
+					
+					if(isset($_COOKIE['uuid']))
+						$checkFormUser->uuid = $_COOKIE['uuid'];
+
 					$checkFormUser->save();
 
 					$formUser = $checkFormUser;
@@ -185,17 +203,19 @@ class IndexController extends Controller
 				if($page->$pageIndex->pageOver == "end"){
 					Yii::app()->session['page'.$model->id."last"] = "end";
 
-					$ansSave = new FormsAns();
-					$ansSave->ans = $ans;
-					$ansSave->form_id = $model->id;
-					$ansSave->user_id = $formUser->id;
-					$ansSave->creat_time = time();
-					if($ansSave->save()){
-						//填表量增加
-						$model->fill_count = $model->fill_count + 1;
-						$model->save();
+					if(!isset(Yii::app()->session[$model->id."lastSave"]) && Yii::app()->session[$model->id."lastSave"] == 0){
+						$ansSave = new FormsAns();
+						$ansSave->ans = $ans;
+						$ansSave->form_id = $model->id;
+						$ansSave->user_id = $formUser->id;
+						$ansSave->creat_time = time();
+						if($ansSave->save()){
+							//填表量增加
+							$model->fill_count = $model->fill_count + 1;
+							$model->save();
+						}
+						Yii::app()->session[$model->id."lastSave"] = time();
 					}
-
 					//print_r($ans); exit;
 
 				//下一頁
@@ -215,7 +235,7 @@ class IndexController extends Controller
 
 				//FaceBook SDK 4.0
 				FacebookSession::setDefaultApplication("840361439355895", "2efea510c4f20c2911308fdeb0dbabc3");
-				$helper = new FacebookRedirectLoginHelper("http://localhost/CFC/index/form?id=".$id,"840361439355895", "2efea510c4f20c2911308fdeb0dbabc3");
+				$helper = new FacebookRedirectLoginHelper("http://events.doublemax.net/CFC/index/form?id=".$id,"840361439355895", "2efea510c4f20c2911308fdeb0dbabc3");
 				 // see if a existing session exists
 				if (isset(Yii::app()->session["fb_token"])) {
 				    // create new session from saved access_token
@@ -258,7 +278,7 @@ class IndexController extends Controller
 					$fbResponse = (new FacebookRequest($fbToken, 'GET', '/me?fields=id,name,email,birthday,gender'))->execute()->getGraphObject();
 					Yii::app()->session["fb_token"] = $fbToken->getToken();
 					if(isset($_GET['code']))
-						$this->redirect("http://localhost/CFC/index/form?id=".$id);
+						$this->redirect("http://events.doublemax.net/CFC/index/form?id=".$id);
 
 					$fbResponse = $fbResponse->asArray();
 
@@ -297,7 +317,12 @@ class IndexController extends Controller
 			}
 		}
 
-		
+		if(isset(Yii::app()->session[$model->id."lastSave"]) && Yii::app()->session[$model->id."lastSave"] != 0)
+			Yii::app()->session['page'.$model->id."last"] = "end";
+
+		if(isset($_POST['FormsUser']) && !empty($_POST['FormsUser']['years']))
+			$formUser->years = $_POST['FormsUser']['years'];
+
 		$this->render('../form/view',array(
 			'model' => $model,
 			'formUser' => $formUser,

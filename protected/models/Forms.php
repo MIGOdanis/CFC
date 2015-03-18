@@ -38,7 +38,7 @@ class Forms extends CActiveRecord
 			array('question, active, creat_time, fill_count, star_time, end_time, creat_by', 'required'),
 			array('progress, active, creat_time, fill_count, star_time, end_time, creat_by', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
-			array('over_content', 'safe'),
+			array('over_content,head_code', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, title, caption, progress, question, active, creat_time, fill_count, star_time, end_time, creat_by, over_content', 'safe', 'on'=>'search'),

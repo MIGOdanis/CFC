@@ -2,6 +2,7 @@
 $page = json_decode($model->question);
 $pageArr = (array)$page;
 $countPage = count($pageArr);
+// print_r($formUser); exit;
 ?>
 <script type="text/javascript" src="<?php echo Yii::app()->params['baseUrl']; ?>/assets/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->params['baseUrl']; ?>/assets/bootstrap/validator/js/validator.js"></script>
@@ -146,7 +147,25 @@ $countPage = count($pageArr);
 	.err-msg{
 		text-align: center;
 	}
+	#contents{
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	#page{
+		padding-left: 50px;
+		padding-right: 50px;		
+	}
+	.over-content{
+		text-align: center;
+	}
+	.bg-danger{
+		color: red;
+	}
 </style>
+<?php 
+if($model!==null)
+	echo $model->head_code;
+?>
 <div id="page" <?php if($value->display == 0){ echo "class='hide-page'"; }?>>
 <?php 
 if($model===null){
@@ -157,7 +176,7 @@ if($model===null){
 			<h1 class="err-msg">表單維護中，請稍後再試</h1>
 		</div>
 	</div>	
-<?
+<?php
 }elseif(time() < $model->star_time || time() > $model->end_time){
 ?>
 	<div class="page-header">
@@ -168,7 +187,7 @@ if($model===null){
 			</h1>
 		</div>
 	</div>	
-<?
+<?php
 }else{
 if(!isset(Yii::app()->session['page'.$model->id."last"]) || (Yii::app()->session['page'.$model->id."last"] < 1) && !in_array(Yii::app()->session['page'.$model->id."last"], array("end","last")))
 	Yii::app()->session['page'.$model->id."last"] = 1;
@@ -183,46 +202,49 @@ if(Yii::app()->session['page'.$model->id."last"] == "end")
 if($pageIndex == "end"){
 ?>
 		<div id="over-content">
-			<?php echo nl2br($model->over_content); ?>
+			<div><img id="cf-logo" src="<?php echo Yii::app()->params['baseUrl']; ?>/assets/image/cf.png"></div>
+			<div class="over-content"><?php echo nl2br($model->over_content); ?></div>
 		</div>
 		<?php 
-		$ansArray = json_decode($ans,true);
-		if(!empty($ansArray)){
-			foreach ($ansArray as $key => $ansRow) {
-			?>
-				<div class="over-content-page">
-					<div class="page-header">
-				 		<div class="title-group">
-							<h2><?php echo $page->$key->pageTitle;?>(分頁<?php echo $page->$key->pageIndex;?>)</h2>
-							<h3><?php echo nl2br($page->$key->pageCaption);?></h3>
-						</div>
-					</div>			
-				<?php
-				foreach ($ansRow as $ansRowkey => $ansRowvalue) {
+		if($this->id != "index"){
+			$ansArray = json_decode($ans,true);
+			if(!empty($ansArray)){
+				foreach ($ansArray as $key => $ansRow) {
 				?>
-					<div class="ojb">
-						<label><?php echo $page->$key->object->$ansRowkey->title; ?></label>
-						<div><?php echo $page->$key->object->$ansRowkey->caption; ?></div>
-						<div class="ans">
-							<?php 
-							if(in_array($page->$key->object->$ansRowkey->type, array("tableSelect","multiSelect"))){
-								if(!empty($ansRowvalue)){
-									foreach ($ansRowvalue as $li => $data) {
-										echo $li ." : ". $data . "<br>";
+					<div class="over-content-page">
+						<div class="page-header">
+					 		<div class="title-group">
+								<h2><?php echo $page->$key->pageTitle;?>(分頁<?php echo $page->$key->pageIndex;?>)</h2>
+								<h3><?php echo nl2br($page->$key->pageCaption);?></h3>
+							</div>
+						</div>			
+					<?php
+					foreach ($ansRow as $ansRowkey => $ansRowvalue) {
+					?>
+						<div class="ojb">
+							<label><?php echo $page->$key->object->$ansRowkey->title; ?></label>
+							<div><?php echo $page->$key->object->$ansRowkey->caption; ?></div>
+							<div class="ans">
+								<?php 
+								if(in_array($page->$key->object->$ansRowkey->type, array("tableSelect","multiSelect"))){
+									if(!empty($ansRowvalue)){
+										foreach ($ansRowvalue as $li => $data) {
+											echo $li ." : ". $data . "<br>";
+										}
 									}
+								}else{
+									echo $ansRowvalue;
 								}
-							}else{
-								echo $ansRowvalue;
-							}
-							
-							 ?>
+								
+								 ?>
+							</div>
 						</div>
-					</div>
+					<?php
+					}
+					?>
+					</div> 
 				<?php
 				}
-				?>
-				</div> 
-			<?php
 			}
 		}
 		?>
@@ -333,7 +355,13 @@ if($pageIndex == "end"){
 						<?php }?>
 					</div>
 					<div class="form-login">
-						<?php echo $form->errorSummary($formUser); ?>
+						<?php
+							$error = $form->errorSummary($formUser);
+							$error = str_replace("Please fix the following input errors","請確認表單",$error);
+							if(!empty($error)){
+								echo '<p class="bg-danger">' . $error . '</p>';
+							}
+						?>
 						<div class="form-group">
 							<label><?php echo $form->labelEx($formUser,'name'); ?></label>
 							<?php echo $form->textField($formUser,'name',array('size'=>60,'maxlength'=>70 , "class"=>"form-control form-user-input" , "placeholder"=>"您的姓名")); ?>

@@ -41,6 +41,14 @@
 	  		顯示進度條
 		</label>
 	</div>	
+
+	<div class="form-group">
+		<label><?php echo $form->labelEx($model,'head_code'); ?></label>
+		<p class="help-block">頁面自訂Code (可設定CSS JS GA VIEWLOG 等..)</p>
+		<textarea name="Forms[head_code]" rows="3" class="form-control" id="Forms_head_code"><?php echo (isset($_POST['Forms']['head_code'])) ? $_POST['Forms']['head_code'] : $model->head_code;?></textarea>
+		<p class="text-danger"><?php echo $form->error($model,'head_code'); ?></p>
+	</div>
+
 	<script type="text/javascript">
 		$(function() {
 			$( "#Forms_end_time , #Forms_star_time" ).datepicker({

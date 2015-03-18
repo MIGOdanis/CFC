@@ -350,7 +350,8 @@ class FormController extends Controller
 
 		foreach ($question as $q1) {
 			foreach ($q1['object'] as $key => $object) {
-				$objectAns[$key] = $ans[$key];
+				if($object['type'] != "html")
+					$objectAns[$key] = $ans[$key];
 			}
 		}
 

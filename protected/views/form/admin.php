@@ -96,7 +96,7 @@ $('.search-form form').submit(function(){
 			(
 				'view' => array(
 					'url'=>'Yii::app()->createUrl("form/report", array("id"=>$data->id))',
-					'visible'=> '$data->fill_count > 1',
+					'visible'=> '$data->fill_count > 0',
 				),
 				'activate'=>array(
 						'label'=>'啟用',
@@ -119,31 +119,9 @@ $('.search-form form').submit(function(){
 							return false;
 						}",						
 						'imageUrl'=> Yii::app()->params['baseUrl'] . '/assets/image/icon/layouts_icon_activate.jpg',
-						'visible'=> '$data->active == 0',
+						'visible'=> '($data->active == 0 || $data->active == 2)',
 				),
-				'activate'=>array(
-						'label'=>'啟用',
-						'url'=>'Yii::app()->createUrl("form/active", array("id"=>$data->id))',
-						'click'=>"function() {
-							if(!confirm('是否啟用?')) return false;
-							var th = this,
-								afterDelete = function(){};
-							jQuery('#yiiCGrid').yiiGridView('update', {
-								type: 'POST',
-								url: jQuery(this).attr('href'),
-								success: function(data) {
-									jQuery('#yiiCGrid').yiiGridView('update');
-									afterDelete(th, true, data);
-								},
-								error: function(XHR) {
-									return afterDelete(th, false, XHR);
-								}
-							});
-							return false;
-						}",						
-						'imageUrl'=> Yii::app()->params['baseUrl'] . '/assets/image/icon/layouts_icon_activate.jpg',
-						'visible'=> '$data->active == 2',
-				),				
+			
 				'deactivate'=>array(
 						'label'=>'停用',
 						'url'=>'Yii::app()->createUrl("form/active", array("id"=>$data->id))',
