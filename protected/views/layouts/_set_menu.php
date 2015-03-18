@@ -10,11 +10,19 @@ $mapping = array(
 	"bcMaker" => "business",
 	"business" => "business",
 	"system" => "system",
-	"message" => "system",	
+	"message" => "system",
+	"form" => "form"
 );
 $fullMenu = array();
 //設置選單 
 $fullMenu = array(	
+	"form" => array(
+		"title" => "問卷雲",
+		"defaultUrl" => "form/admin",
+		"action" => array(
+			array("title" => "管理問卷", "remark" => "神奇的域動問券雲", "url"=>"form/admin", "controller" => "form", "action" => array("admin", "update", "create", "active", "view", "delete", "selectType", "types", "getLayout", "updateType", "htmlLayout", "report")),
+		)
+	),	
 	"system" => array(
 		"title" => "系統雲",
 		"defaultUrl" => "message/admin",
