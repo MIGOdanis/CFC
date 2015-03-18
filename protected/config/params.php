@@ -15,7 +15,7 @@ return array(
 	// whether post comments need to be approved before published
 	'commentNeedApproval'=>true,
 	// the copyright information displayed in the footer section
-	'baseUrl' => 'http://127.0.0.1/CFC',
+	'baseUrl' => 'http://192.168.1.10/CFC',
 
 	'userGroup' => array('1'=>'網站管理員','2'=>'產品','3'=>'BD','4'=>'業務','5'=>'行銷'),
 	'msgTarget' => array('RootCompany'=>'管理員','AdAgency'=>'經銷商','Advertiser'=>'廣告主','MdAgency'=>'代理商','Site'=>'網站主'),

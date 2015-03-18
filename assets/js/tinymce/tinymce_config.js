@@ -19,7 +19,7 @@
  */
 //停用的toolbar : fullscreen styleselect 
 tinymce.init({
- 	selector: "content",
+ 	//selector: "content",
  	relative_urls : false,
     selector: "textarea",
 	language : 'zh_TW',
