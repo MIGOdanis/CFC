@@ -17,10 +17,10 @@ $fullMenu = array();
 //設置選單 
 $fullMenu = array(	
 	"form" => array(
-		"title" => "問卷雲",
+		"title" => "表單雲",
 		"defaultUrl" => "form/admin",
 		"action" => array(
-			array("title" => "管理問卷", "remark" => "神奇的域動問券雲", "url"=>"form/admin", "controller" => "form", "action" => array("admin", "update", "create", "active", "view", "delete", "selectType", "types", "getLayout", "updateType", "htmlLayout", "report")),
+			array("title" => "管理表單", "remark" => "神奇的域動問券雲", "url"=>"form/admin", "controller" => "form", "action" => array("admin", "update", "create", "active", "view", "delete", "selectType", "types", "getLayout", "updateType", "htmlLayout", "report")),
 		)
 	),	
 	"system" => array(

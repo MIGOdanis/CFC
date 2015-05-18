@@ -1,5 +1,5 @@
 <div class="form-box">
-	<div class="form-box-label">問卷基本設定</div>
+	<div class="form-box-label">表單基本設定</div>
 
 	<div class="form-group">
 		<label><?php echo $form->labelEx($model,'title'); ?></label>
@@ -9,7 +9,7 @@
 
 	<div class="form-group">
 		<label><?php echo $form->labelEx($model,'caption'); ?></label>
-		<p class="help-block">問卷摘要，非必填</p>
+		<p class="help-block">表單摘要，非必填</p>
 		<textarea name="Forms[caption]" rows="3" class="form-control" id="Forms_caption"><?php echo (isset($_POST['Forms']['caption'])) ? $_POST['Forms']['caption'] : $model->caption;?></textarea>
 		<p class="text-danger"><?php echo $form->error($model,'caption'); ?></p>
 	</div>	

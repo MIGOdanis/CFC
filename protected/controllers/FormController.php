@@ -259,7 +259,9 @@ class FormController extends Controller
 		$ojTitle[] = "填表人出生日期";
 		$ojTitle[] = "填表人郵件";
 		$ojTitle[] = "填表人性別";
-		$ojTitle[] = "填表人聯絡電話";		
+		$ojTitle[] = "填表人聯絡電話";	
+		$ojTitle[] = "UUID";	
+		$ojTitle[] = "FBID";
 		foreach ($question as $q1) {
 			foreach ($q1['object'] as $key => $object) {
 				$ojTitle[] = $object['title'];
@@ -288,6 +290,8 @@ class FormController extends Controller
 			$ansArray[] = $ans->formUser->mail;
 			$ansArray[] = ($ans->formUser->gender == 1) ? "Male" : "Female" ;
 			$ansArray[] = $ans->formUser->phone;
+			$ansArray[] = $ans->formUser->uuid;
+			$ansArray[] = $ans->formUser->fb_id;
 			foreach ($ojKey as $key) {
 				$ansArray[] = (!empty($ansRow[$key])) ? $ansRow[$key] : "";
 			}
