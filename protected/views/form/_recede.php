@@ -20,6 +20,9 @@
 </style>
 <script type="text/javascript">
 	var active = <?php echo $model->active; ?>;
+	$(function(){
+		updateTC();
+	})
 </script>
 <div class="form">
 

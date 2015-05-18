@@ -251,7 +251,7 @@ class FormController extends Controller
 
 	public function export($formsAns,$forms)
 	{
-		$array=array(1=>array($forms->title));
+		$array=array(1=>array("編號" . $forms->id . ":" . $forms->title . " | 填表時間 " . date("Y-m-d",$forms->star_time) . "~" . date("Y-m-d",$forms->end_time)));
 		$question = json_decode($forms->question,true);
 		$ojTitle = array();
 		$ojKey = array();
@@ -303,7 +303,12 @@ class FormController extends Controller
 		Yii::import('ext.phpexcel.JPhpExcel');
 		$xls=new JPhpExcel;
 		$xls->addArray($array);
-		$xls->generateXML('報表'.date('Ymd-His'),false);		
+		$xls->generateXML($forms->title.date('Ymd-His'),false);		
+	}
+
+	public function actionReadReport($id)
+	{
+		$this->actionReport();
 	}
 
 	/**
@@ -491,6 +496,14 @@ class FormController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+
+	/**
+	 * Manages all models.
+	 */
+	public function actionRead()
+	{
+		$this->actionAdmin();
 	}
 
 	/**

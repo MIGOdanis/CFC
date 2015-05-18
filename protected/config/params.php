@@ -15,9 +15,9 @@ return array(
 	// whether post comments need to be approved before published
 	'commentNeedApproval'=>true,
 	// the copyright information displayed in the footer section
-	'baseUrl' => 'http://events.doublemax.net/CFC',
+	'baseUrl' => 'http://events.doublemax.net/cloud',
 
-	'userGroup' => array('1'=>'網站管理員','2'=>'產品','3'=>'BD','4'=>'業務','5'=>'行銷'),
+	'userGroup' => array('1'=>'網站管理員','2'=>'產品','3'=>'BD','4'=>'業務','5'=>'行銷','6'=>'三立'),
 	'msgTarget' => array('RootCompany'=>'管理員','AdAgency'=>'經銷商','Advertiser'=>'廣告主','MdAgency'=>'代理商','Site'=>'網站主'),
 	'msgType' => array('1'=>'全部','2'=>'CF','3'=>'MF'),
 

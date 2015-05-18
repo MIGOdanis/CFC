@@ -1,5 +1,10 @@
+<?php 
+if($this->action->id != "read"){
+	$read = "0";
+}
+?>
 <div class="page-header">
-  <h1>管理問券</h1>
+  <h1><?php echo ($this->action->id == "read")? "查看" : "管理" ; ?>表單</h1>
 </div>
 <SCRIPT TYPE="text/javascript">	
 	$(function() {
@@ -25,8 +30,27 @@ $('.search-form form').submit(function(){
 	return false;
 });
 ");
+if($this->action->id != "read"){
 ?>
 <a class="btn btn-default" href="create">建立新問券</a>
+<?php
+}else{
+?>
+<script type="text/javascript">
+	$(function(){
+		$(".update").hide();
+		$(".activate").hide();
+		$(".deactivate").hide();
+		$("#yiiCGrid_c3").hide();
+		var filters = $(".filters td")[3];
+		$(filters).hide();
+		$(".cb").hide();
+
+	})
+</script>
+<?php
+}
+?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'yiiCGrid',
 	'itemsCssClass' => 'table table-bordered table-striped',
@@ -52,7 +76,13 @@ $('.search-form form').submit(function(){
 			'name'=>'title',
 			'type' =>'raw',
 			'value'=>'CHtml::link($data->title, array("form/view","id"=>$data->id))',
-		),	
+		),
+		array(
+			'header'=>'前台',
+			'type' =>'raw',
+			'value'=>'CHtml::link("前往前台", array("index/form","id"=>$data->id),array("target"=>"_blank"))',
+			'htmlOptions'=>array('width'=>'80'),
+		),				
 		array(
 			'name'=>'fill_count',
 			'value'=>'$data->fill_count',
@@ -62,7 +92,7 @@ $('.search-form form').submit(function(){
 		array(
 			'name'=>'creat_by',
 			'value'=>'$data->user->nick_name',
-			'htmlOptions'=>array('width'=>'100'),
+			'htmlOptions'=>array('width'=>'100','class'=>'cb'),
 			'filter'=>false,
 		),	
 		array(
@@ -93,7 +123,7 @@ $('.search-form form').submit(function(){
 			'template'=>'{update}{activate}{deactivate}{view}',
 			'htmlOptions'=>array('width'=>'70'),
 			'buttons'=>array
-			(
+			(			
 				'view' => array(
 					'url'=>'Yii::app()->createUrl("form/report", array("id"=>$data->id))',
 					'visible'=> '$data->fill_count > 0',
@@ -119,7 +149,7 @@ $('.search-form form').submit(function(){
 							return false;
 						}",						
 						'imageUrl'=> Yii::app()->params['baseUrl'] . '/assets/image/icon/layouts_icon_activate.jpg',
-						'visible'=> '($data->active == 0 || $data->active == 2)',
+						'visible'=> '($data->active == 0 || $data->active == 2) ',
 				),
 			
 				'deactivate'=>array(

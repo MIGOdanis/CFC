@@ -7,6 +7,7 @@ $countPage = count($pageArr);
 <script type="text/javascript" src="<?php echo Yii::app()->params['baseUrl']; ?>/assets/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->params['baseUrl']; ?>/assets/bootstrap/validator/js/validator.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->params['baseUrl']; ?>/assets/js/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="//eland.doublemax.net/cfdmp/clickreceiver?DMP_SR=CF_AT&DMP_SR_TY=ACT<?php echo $model->id;?>"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->params['baseUrl']; ?>/assets/js/jquery.dateLists.min.js"></script>
 <link rel="stylesheet" href="<?php echo Yii::app()->params['baseUrl']; ?>/assets/css/jquery.dateLists.css">
 <link rel="stylesheet" href="<?php echo Yii::app()->params['baseUrl']; ?>/assets/js/jquery-ui/ss-theam/jquery-ui.css">

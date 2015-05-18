@@ -93,6 +93,8 @@ class Forms extends CActiveRecord
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
+		$user = User::model()->findByPk(Yii::app()->user->id);
+
 
 		$criteria=new CDbCriteria;
 
@@ -108,6 +110,10 @@ class Forms extends CActiveRecord
 		$criteria->compare('end_time',$this->end_time);
 		$criteria->compare('creat_by',$this->creat_by);
 		$criteria->compare('over_content',$this->over_content,true);
+		$criteria->with = 'user';
+
+		if($user->group != 1)
+			$criteria->addCondition("user.group = " . $user->group);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -62,8 +62,19 @@ $(function() {
 })
 
 function updateTC(){
-	$("#headerTitle").html($("#Forms_title").val());
-	$("#headerCaption").html($("#Forms_caption").val().replace(/\n/g,"<br>"));
+	var url = document.location.href;
+	if(url.indexOf('update')!=-1){
+		var p1 = jQuery.parseJSON($("#hide-1").val());
+		p1.title = $("#Forms_title").val();
+		p1.caption = $("#Forms_caption").val().replace(/\n/g,"<br>");
+		$("#hide-1").val(JSON.stringify(p1));
+		$("#page1-group .title-group h1").html($("#Forms_title").val());
+		$("#page1-group .title-group h3").html($("#Forms_caption").val().replace(/\n/g,"<br>"));
+	}else{
+		$("#headerTitle").html($("#Forms_title").val());
+		$("#headerCaption").html($("#Forms_caption").val().replace(/\n/g,"<br>"));
+	}	
+
 }
 
 function initSortableOfForm(){

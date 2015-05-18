@@ -90,8 +90,8 @@ class IndexController extends Controller
 					if($formUser->gender == 0)
 						$formUser->gender = "";
 
-					if(isset($_COOKIE['uuid']))
-						$formUser->uuid = $_COOKIE['uuid'];
+					if(isset($_COOKIE['edmp_uuid']))
+						$formUser->uuid = $_COOKIE['edmp_uuid'];
 
 					// print_r($_POST['FormsUser']);exit;
 
@@ -112,8 +112,8 @@ class IndexController extends Controller
 					$checkFormUser->attributes=$_POST['FormsUser'];
 					$checkFormUser->years = strtotime($_POST['FormsUser']['years']);
 					
-					if(isset($_COOKIE['uuid']))
-						$checkFormUser->uuid = $_COOKIE['uuid'];
+					if(isset($_COOKIE['edmp_uuid']))
+						$checkFormUser->uuid = $_COOKIE['edmp_uuid'];
 
 					$checkFormUser->save();
 
@@ -235,7 +235,7 @@ class IndexController extends Controller
 
 				//FaceBook SDK 4.0
 				FacebookSession::setDefaultApplication("840361439355895", "2efea510c4f20c2911308fdeb0dbabc3");
-				$helper = new FacebookRedirectLoginHelper("http://events.doublemax.net/CFC/index/form?id=".$id,"840361439355895", "2efea510c4f20c2911308fdeb0dbabc3");
+				$helper = new FacebookRedirectLoginHelper("http://events.doublemax.net/cloud/index/form?id=".$id,"840361439355895", "2efea510c4f20c2911308fdeb0dbabc3");
 				 // see if a existing session exists
 				if (isset(Yii::app()->session["fb_token"])) {
 				    // create new session from saved access_token
@@ -278,7 +278,7 @@ class IndexController extends Controller
 					$fbResponse = (new FacebookRequest($fbToken, 'GET', '/me?fields=id,name,email,birthday,gender'))->execute()->getGraphObject();
 					Yii::app()->session["fb_token"] = $fbToken->getToken();
 					if(isset($_GET['code']))
-						$this->redirect("http://events.doublemax.net/CFC/index/form?id=".$id);
+						$this->redirect("http://events.doublemax.net/cloud/index/form?id=".$id);
 
 					$fbResponse = $fbResponse->asArray();
 

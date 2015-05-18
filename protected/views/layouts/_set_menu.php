@@ -21,6 +21,7 @@ $fullMenu = array(
 		"defaultUrl" => "form/admin",
 		"action" => array(
 			array("title" => "管理表單", "remark" => "神奇的域動問券雲", "url"=>"form/admin", "controller" => "form", "action" => array("admin", "update", "create", "active", "view", "delete", "selectType", "types", "getLayout", "updateType", "htmlLayout", "report")),
+			array("title" => "查看表單", "remark" => "域動表單雲", "url"=>"form/read", "controller" => "form", "action" => array("read","readReport")),		
 		)
 	),	
 	"system" => array(
